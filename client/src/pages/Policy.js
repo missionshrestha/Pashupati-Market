@@ -3,6 +3,7 @@ import Layout from '../components/Layouts/Layout'
 
 const Policy = () => {
     return (
+        //passing props title to layout
         <Layout title={"Privacy Policy"}>
             <div className="row contactus ">
                 <div className="col-md-6 ">
