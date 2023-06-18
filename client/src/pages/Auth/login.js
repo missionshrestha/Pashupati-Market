@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 // import { toast } from 'react-toastify';
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import { useAuth } from '../../context/auth.js';
 
 // CSS
 import "../../Styles/AuthStyle.css";
@@ -13,8 +14,8 @@ const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const navigate = useNavigate();
+    const [auth, setAuth] = useAuth();
 
     //form function
     const handleSubmit = async (e) => {
@@ -26,6 +27,15 @@ const Login = () => {
                 { email, password, })
             if (res.data.success) {
                 toast.success(res.data.message)
+
+                //set login data in homepage
+                setAuth({
+                    ...auth,
+                    user: res.data.user,
+                    token: res.data.token
+                })
+
+                localStorage.setItem('auth', JSON.stringify(res.data))
                 navigate("/");//navigate to login page after success registration
 
             }
