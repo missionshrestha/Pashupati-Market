@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState, useEffect, useContext, createContext } from "react";
 
 // Create an AuthContext
@@ -10,31 +11,37 @@ const AuthProvider = ({ children }) => {
         user: null,
         token: ""
     });
-    /* 
-        useEffect(() => {
-            const data = localStorage.getItem('auth')
-            if (data) {
-                const parseData = JSON.parse(data)
-                setAuth({
-                    ...auth,
-                    user: parseData.user,
-                    token: parseData.token,
-                })
-            }
-        }, [auth]); */
+
+    //default axios equivalent of code in private.js
+    axios.defaults.headers.common["Authorization"] = auth?.token;
 
     useEffect(() => {
-        const data = localStorage.getItem('auth');
+        const data = localStorage.getItem('auth')
         if (data) {
-            const parseData = JSON.parse(data);
-            setAuth(prevAuth => ({
-                ...prevAuth,
+            const parseData = JSON.parse(data)
+            setAuth({
+                ...auth,
                 user: parseData.user,
                 token: parseData.token,
-            }));
+            })
         }
-    }, [setAuth]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
+
+    /* 
+        useEffect(() => {
+            const data = localStorage.getItem('auth');
+            if (data) {
+                const parseData = JSON.parse(data);
+                setAuth(prevAuth => ({
+                    ...prevAuth,
+                    user: parseData.user,
+                    token: parseData.token,
+                }));
+            }
+        }, [setAuth]);
+     */
     return (
         // Provide AuthContext with auth state and setAuth function using value prop
         <AuthContext.Provider value={[auth, setAuth]}>

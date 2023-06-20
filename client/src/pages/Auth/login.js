@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Layout from '../../components/Layouts/Layout'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 // import { toast } from 'react-toastify';
 import toast from 'react-hot-toast';
 import axios from 'axios';
@@ -16,6 +16,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const [auth, setAuth] = useAuth();
+    const location = useLocation();
 
     //form function
     const handleSubmit = async (e) => {
@@ -36,7 +37,7 @@ const Login = () => {
                 })
 
                 localStorage.setItem('auth', JSON.stringify(res.data))
-                navigate("/");//navigate to login page after success registration
+                navigate(location.state || "/");//navigate to page which was before login otherwist to homepage  after success login
 
             }
             else {
