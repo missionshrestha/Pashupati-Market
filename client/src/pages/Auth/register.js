@@ -16,6 +16,7 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
+    const [answer, setAnswer] = useState("");
     const navigate = useNavigate();
 
     //form function
@@ -25,7 +26,7 @@ const Register = () => {
         try {
             //passing form data to server 8080
             const res = await axios.post('/api/v1/auth/register',
-                { name, email, password, phone, address })
+                { name, email, password, phone, address ,answer})
             if (res.data.success) {
                 toast.success(res.data.message)
                 navigate("/login");//navigate to login page after success registration
@@ -102,6 +103,18 @@ const Register = () => {
                             className="form-control"
                             id="InputPassword"
                             placeholder='Enter your Password '
+                            required
+                        />
+
+                    </div>
+                    <div className="mb-3">
+                        <input
+                            type="text"
+                            value={answer}
+                            onChange={(e) => setAnswer(e.target.value)}
+                            className="form-control"
+                            id="InputAnswer"
+                            placeholder='Enter your Answer to reset password '
                             required
                         />
 
