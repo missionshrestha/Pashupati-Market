@@ -115,6 +115,7 @@ export const loginController = async (req, res) => {
                 email: user.email,
                 phone: user.phone,
                 adddress: user.address,
+                role:user.role,
             },
             token
 

@@ -33,4 +33,10 @@ router.get('/user-auth', requireSignIn, (req, res) => {
     //using directly instead of contoller
     res.status(200).send({ ok: true });
 })
+
+//protected route auth for admin, can access this route only after signin
+router.get('/admin-auth', requireSignIn, isAdmin, (req, res) => {
+    //using directly instead of contoller
+    res.status(200).send({ ok: true });
+})
 export default router;
